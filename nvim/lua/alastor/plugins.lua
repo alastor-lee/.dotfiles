@@ -1,13 +1,30 @@
 return {
-  "folke/which-key.nvim",
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+    opts = {}
+  },
   -- lua dev helper (docs, completion, ..)
   "folke/neodev.nvim",
   {
     'nvim-telescope/telescope.nvim', tag = '0.1.4',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
-  -- colorscheme
+  -- colorschemes
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  {
+    "baliestri/aura-theme",
+    lazy = false,
+    priority = 1000,
+    config = function(plugin)
+      vim.opt.rtp:append(plugin.dir .. "/packages/neovim")
+      -- vim.cmd([[colorscheme aura-dark]])
+    end
+  },
   { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
   { 'ThePrimeagen/harpoon' },
   { 'mbbill/undotree' },

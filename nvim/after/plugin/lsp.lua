@@ -9,7 +9,14 @@ end)
 local lsp_config = require('lspconfig')
 local util =  require('lspconfig.util')
 
-lsp_config.tsserver.setup({})
+lsp_config.tsserver.setup({
+  -- root_dir = function(fname)
+  --   return util.root_pattern('packages')(fname)
+  -- end,
+  cmd = cmd,
+  on_attach = on_attach,
+})
+
 lsp_config.eslint.setup({
   on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
@@ -17,7 +24,13 @@ lsp_config.eslint.setup({
       command = "EslintFixAll",
     })
   end,
+  -- root_dir = function(fname)
+  --   return util.root_pattern('packages')(fname)
+  -- end,
 })
+
+-- snippets not enabled yet
+lsp_config.jsonls.setup({})
 
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
