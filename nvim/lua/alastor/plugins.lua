@@ -109,4 +109,5 @@ return {
     opts = {},
   },
   { 'numToStr/Comment.nvim', opts = {} },
+  { "sindrets/diffview.nvim", opts = {} },
 }

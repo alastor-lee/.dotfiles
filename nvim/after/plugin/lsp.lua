@@ -9,7 +9,7 @@ end)
 local lsp_config = require('lspconfig')
 local util =  require('lspconfig.util')
 
-lsp_config.tsserver.setup({
+lsp_config.ts_ls.setup({
   -- root_dir = function(fname)
   --   return util.root_pattern('packages')(fname)
   -- end,
@@ -30,7 +30,11 @@ lsp_config.eslint.setup({
 })
 
 -- snippets not enabled yet
-lsp_config.jsonls.setup({})
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+lsp_config.jsonls.setup({
+  capabilities = capabilities,
+})
 
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
